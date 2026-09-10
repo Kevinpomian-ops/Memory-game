@@ -464,18 +464,16 @@ const renderBoard = () => {
           if (state.matchedPairs === state.board.length / 2) {
             state.isGameOver = true;
             setTimeout(() => {
-              const winner = Object.entries(state.scores).sort(([, scoreA], [, scoreB]) => scoreB - scoreA)[0][0];
               const overlay = document.createElement('div');
               overlay.className = 'game-over-modal';
-              const gameOverLabel = state.playerCount === 1 ? 'Player 1' : winner;
               const scoreMarkup = state.playerCount === 1
-                ? `<span>Player 1: ${state.scores.Blue}</span>`
-                : `<span>Blue: ${state.scores.Blue}</span><span>Orange: ${state.scores.Orange}</span>`;
+                ? `<span class="score-chip score-chip--blue">Player 1: ${state.scores.Blue}</span>`
+                : `<span class="score-chip score-chip--blue">Blue ${state.scores.Blue}</span><span class="score-chip score-chip--orange">Orange ${state.scores.Orange}</span>`;
 
               overlay.innerHTML = `
                 <div class="game-over-card">
-                  <p class="game-over-label">Game Over</p>
-                  <h3>Winner: ${gameOverLabel}</h3>
+                  <h3>Game over</h3>
+                  <p class="game-over-label">Final score</p>
                   <div class="game-over-scores">
                     ${scoreMarkup}
                   </div>
