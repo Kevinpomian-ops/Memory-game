@@ -196,26 +196,20 @@ const applyTheme = (theme: ThemeName) => {
 
 const createGameMarkup = () => `
   <div class="page home-page is-visible" data-screen="home">
-    <header class="topbar">
-      <div class="brand-mark" aria-label="Memory game brand">
-        <span class="brand-mark__dot"></span>
-        <span class="brand-mark__dot"></span>
-        <span class="brand-mark__dot"></span>
-      </div>
-    </header>
-
     <main class="home-screen">
       <div class="home-screen__content">
-        <div class="controller-card">
-          <img src="/assets/stadia_controller.svg" alt="Controller" class="controller-card__image" />
+        <div class="home-screen__copy">
+          <p class="eyebrow">It’s play time.</p>
+          <h1>Ready to <span>play?</span></h1>
+          <button class="play-button" type="button" data-action="start-game">
+            <span class="play-button__icon" aria-hidden="true">🎮</span>
+            <span>Play</span>
+            <span class="play-button__arrow" aria-hidden="true">→</span>
+          </button>
         </div>
 
-        <div class="home-screen__copy">
-          <p class="eyebrow">MEMORY</p>
-          <h1>Developer <span>Academy</span></h1>
-          <button class="play-button" type="button" data-action="start-game">
-            Start / Play
-          </button>
+        <div class="controller-card" aria-hidden="true">
+          <img src="/assets/stadia_controller.svg" alt="Controller" class="controller-card__image" />
         </div>
       </div>
     </main>
@@ -224,45 +218,66 @@ const createGameMarkup = () => `
   <div class="page settings-page" data-screen="settings" aria-hidden="true">
     <main class="settings-screen">
       <div class="settings-panel">
-        <h2>Settings</h2>
+        <div class="settings-layout">
+          <div class="settings-controls">
+            <h2>Settings</h2>
 
-        <div class="settings-group">
-          <label>Players</label>
-          <div class="option-row" data-group="players">
-            <button class="choice" type="button" data-value="1">1 Player</button>
-            <button class="choice choice--active" type="button" data-value="2">2 Players</button>
+            <div class="settings-group">
+              <label>Game themes</label>
+              <div class="option-row" data-group="theme">
+                <button class="choice choice--active" type="button" data-value="Coding Vibes">Coding vibes</button>
+                <button class="choice" type="button" data-value="Food">Food</button>
+                <button class="choice" type="button" data-value="DA Projects">DA Projects</button>
+              </div>
+            </div>
+
+            <div class="settings-group">
+              <label>Choose player</label>
+              <div class="option-row" data-group="color">
+                <button class="choice choice--active" type="button" data-value="Blue">Blue</button>
+                <button class="choice" type="button" data-value="Orange">Orange</button>
+              </div>
+            </div>
+
+            <div class="settings-group">
+              <label>Board size</label>
+              <div class="option-row" data-group="board-size">
+                <button class="choice" type="button" data-value="4x4">16 cards</button>
+                <button class="choice choice--active" type="button" data-value="4x6">24 cards</button>
+                <button class="choice" type="button" data-value="6x6">36 cards</button>
+              </div>
+            </div>
+
+            <div class="settings-group">
+              <label>Players</label>
+              <div class="option-row" data-group="players">
+                <button class="choice" type="button" data-value="1">1 Player</button>
+                <button class="choice choice--active" type="button" data-value="2">2 Players</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-preview">
+            <div class="settings-preview__topbar">
+              <span class="score-tag score-tag--blue">Blue</span>
+              <span class="score-tag score-tag--orange">Orange</span>
+              <span class="current-player-label">Current player:</span>
+              <button class="exit-button" type="button" data-action="exit-game">Exit game</button>
+            </div>
+
+            <div class="settings-preview__board">
+              <div class="mini-card mini-card--teal"></div>
+              <div class="mini-card mini-card--light"></div>
+            </div>
+
+            <div class="settings-preview__footer">
+              <span>Game theme</span>
+              <span>Player</span>
+              <span>Board size</span>
+              <button class="preview-start" type="button" data-action="begin-game">Start</button>
+            </div>
           </div>
         </div>
-
-        <div class="settings-group">
-          <label>Player 1 Color</label>
-          <div class="option-row" data-group="color">
-            <button class="choice choice--active" type="button" data-value="Blue">Blue</button>
-            <button class="choice" type="button" data-value="Orange">Orange</button>
-          </div>
-        </div>
-
-        <div class="settings-group">
-          <label>Board Size</label>
-          <div class="option-row" data-group="board-size">
-            <button class="choice" type="button" data-value="4x4">4x4</button>
-            <button class="choice choice--active" type="button" data-value="4x6">4x6</button>
-            <button class="choice" type="button" data-value="6x6">6x6</button>
-          </div>
-        </div>
-
-        <div class="settings-group">
-          <label>Theme</label>
-          <div class="option-row" data-group="theme">
-            <button class="choice choice--active" type="button" data-value="Coding Vibes">Coding Vibes</button>
-            <button class="choice" type="button" data-value="Food">Food</button>
-            <button class="choice" type="button" data-value="DA Projects">DA Projects</button>
-          </div>
-        </div>
-
-        <button class="primary-button" type="button" data-action="begin-game">
-          Start Game
-        </button>
       </div>
     </main>
   </div>
