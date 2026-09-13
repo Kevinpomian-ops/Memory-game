@@ -672,6 +672,62 @@ button {
   font-weight: 600;
 }
 
+.exit-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: none;
+  place-items: center;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.86);
+}
+
+.exit-modal.is-visible {
+  display: grid;
+}
+
+.exit-modal__card {
+  width: min(100%, 560px);
+  padding: 2rem;
+  text-align: center;
+  color: #2b2b2b;
+}
+
+.exit-modal__card h2 {
+  margin: 0 0 2.5rem;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+
+.exit-modal__actions {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.secondary-button,
+.outline-button {
+  min-width: 175px;
+  padding: 1rem 1.4rem;
+  border: 2px solid #63cdbf;
+  border-radius: 0;
+  font-weight: 800;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.secondary-button {
+  background: #63cdbf;
+  color: #ffffff;
+}
+
+.outline-button {
+  background: transparent;
+  color: #63cdbf;
+}
+
 @keyframes floatController {
   0%,
   100% {
@@ -720,4 +776,3 @@ button {
     min-width: 96px;
   }
 }
-

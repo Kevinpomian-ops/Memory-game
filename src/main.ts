@@ -1,7 +1,7 @@
 type PlayerColor = 'Blue' | 'Orange';
 type PlayerCount = 1 | 2;
 type BoardSize = '4x4' | '4x6' | '6x6';
-type ThemeName = 'Coding Vibes' | 'Food' | 'DA Projects';
+type ThemeName = 'Coding Vibes' | 'Food' | 'DA Projects' | 'Gaming';
 
 type GameCard = {
   id: string;
@@ -32,58 +32,17 @@ if (!app) {
 
 const themeAssets: Record<ThemeName, string[]> = {
   'Coding Vibes': [
-    '/assets/code_vibe_theme/cards/Property%201=Component%2022-1.svg',
-    '/assets/code_vibe_theme/cards/Property%201=Component%2022-2.svg',
-    '/assets/code_vibe_theme/cards/Property%201=Component%2022-3.svg',
-    '/assets/code_vibe_theme/cards/Property%201=Component%2022-4.svg',
-    '/assets/code_vibe_theme/cards/Property%201=Component%2022-5.svg',
-    '/assets/code_vibe_theme/cards/Property%201=Component%2022-6.svg',
-    '/assets/code_vibe_theme/cards/Property%201=Component%2022-7.svg',
-    '/assets/code_vibe_theme/cards/Property%201=Component%2022-8.svg',
-    '/assets/code_vibe_theme/cards/Property%201=Component%2022-9.svg',
-    '/assets/code_vibe_theme/cards/Property%201=Component%2022-10.svg',
-    '/assets/code_vibe_theme/cards/Property%201=Component%2022-11.svg',
-    '/assets/code_vibe_theme/cards/Property%201=Component%2022-12.svg',
-    '/assets/code_vibe_theme/cards/Property%201=Component%2022-13.svg',
-    '/assets/code_vibe_theme/cards/Property%201=Component%2022-14.svg',
-    '/assets/code_vibe_theme/cards/Property%201=Component%2022-15.svg',
-    '/assets/code_vibe_theme/cards/Property%201=Component%2022-16.svg'
+    ...Array.from({ length: 18 }, (_, index) => `/assets/Code vibes card ${index + 1}.png`)
   ],
   Food: [
-    '/assets/food_theme/card/Property%201=Component%203-1.svg',
-    '/assets/food_theme/card/Property%201=Component%203-2.svg',
-    '/assets/food_theme/card/Property%201=Component%203-3.svg',
-    '/assets/food_theme/card/Property%201=Component%203-4.svg',
-    '/assets/food_theme/card/Property%201=Component%203-5.svg',
-    '/assets/food_theme/card/Property%201=Component%203-6.svg',
-    '/assets/food_theme/card/Property%201=Component%203-7.svg',
-    '/assets/food_theme/card/Property%201=Component%203-8.svg',
-    '/assets/food_theme/card/Property%201=Component%203-9.svg',
-    '/assets/food_theme/card/Property%201=Component%203-10.svg',
-    '/assets/food_theme/card/Property%201=Component%203-11.svg',
-    '/assets/food_theme/card/Property%201=Component%203-12.svg',
-    '/assets/food_theme/card/Property%201=Component%203-13.svg',
-    '/assets/food_theme/card/Property%201=Component%203-14.svg',
-    '/assets/food_theme/card/Property%201=Component%203-15.svg',
-    '/assets/food_theme/card/Property%201=Component%203-16.svg'
+    ...Array.from({ length: 18 }, (_, index) => `/assets/food card ${String(index + 1).padStart(2, '0')}.png`)
   ],
   'DA Projects': [
-    '/assets/da_projects_theme/card/Property%201=Component%202-1.svg',
-    '/assets/da_projects_theme/card/Property%201=Component%202-2.svg',
-    '/assets/da_projects_theme/card/Property%201=Component%202-3.svg',
-    '/assets/da_projects_theme/card/Property%201=Component%202-4.svg',
-    '/assets/da_projects_theme/card/Property%201=Component%202-5.svg',
-    '/assets/da_projects_theme/card/Property%201=Component%202-6.svg',
-    '/assets/da_projects_theme/card/Property%201=Component%202-7.svg',
-    '/assets/da_projects_theme/card/Property%201=Component%202-8.svg',
-    '/assets/da_projects_theme/card/Property%201=Component%202-9.svg',
-    '/assets/da_projects_theme/card/Property%201=Component%202-10.svg',
-    '/assets/da_projects_theme/card/Property%201=Component%202-11.svg',
-    '/assets/da_projects_theme/card/Property%201=Component%202-12.svg',
-    '/assets/da_projects_theme/card/Property%201=Component%202-13.svg',
-    '/assets/da_projects_theme/card/Property%201=Component%202-14.svg',
-    '/assets/da_projects_theme/card/Property%201=Component%202-15.svg',
-    '/assets/da_projects_theme/card/Property%201=Component%202-16.svg'
+    '/assets/DA Projects card 01.png',
+    ...Array.from({ length: 17 }, (_, index) => `/assets/DA Projects card ${index + 2}.png`)
+  ],
+  Gaming: [
+    ...Array.from({ length: 18 }, (_, index) => `/assets/Game card ${index + 1}.png`)
   ]
 };
 
@@ -144,6 +103,25 @@ const themePalette: Record<ThemeName, Record<string, string>> = {
     '--choice-active-border': 'rgba(124, 229, 183, 0.8)',
     '--card-shadow': 'rgba(7, 32, 49, 0.45)',
     '--card-glow': 'rgba(99, 217, 255, 0.22)'
+  },
+  Gaming: {
+    '--page-bg-top': '#294f60',
+    '--page-bg-bottom': '#294f60',
+    '--page-glow': 'rgba(242, 16, 113, 0.18)',
+    '--text-primary': '#ffffff',
+    '--text-muted': '#d7e9ee',
+    '--panel-bg': 'rgba(33, 58, 70, 0.78)',
+    '--panel-border': 'rgba(242, 16, 113, 0.35)',
+    '--button-gradient-start': '#f21071',
+    '--button-gradient-end': '#f21071',
+    '--button-text': '#ffffff',
+    '--choice-bg': 'rgba(255, 255, 255, 0.03)',
+    '--choice-border': 'rgba(255, 255, 255, 0.2)',
+    '--choice-active-start': 'rgba(242, 16, 113, 0.2)',
+    '--choice-active-end': 'rgba(242, 16, 113, 0.1)',
+    '--choice-active-border': '#f21071',
+    '--card-shadow': 'rgba(10, 24, 33, 0.5)',
+    '--card-glow': 'rgba(242, 16, 113, 0.25)'
   }
 };
 
@@ -228,6 +206,7 @@ const createGameMarkup = () => `
                 <button class="choice choice--active" type="button" data-value="Coding Vibes">Coding vibes</button>
                 <button class="choice" type="button" data-value="Food">Food</button>
                 <button class="choice" type="button" data-value="DA Projects">DA Projects</button>
+                <button class="choice" type="button" data-value="Gaming">Gaming</button>
               </div>
             </div>
 
@@ -262,7 +241,7 @@ const createGameMarkup = () => `
               <span class="score-tag score-tag--blue">Blue</span>
               <span class="score-tag score-tag--orange">Orange</span>
               <span class="current-player-label">Current player:</span>
-              <button class="exit-button" type="button" data-action="exit-game">Exit game</button>
+              <button class="exit-button" type="button">Exit game</button>
             </div>
 
             <div class="settings-preview__board">
@@ -307,6 +286,16 @@ const createGameMarkup = () => `
         <div class="game-board" data-board aria-label="Memory playing field"></div>
       </div>
     </main>
+
+    <div class="exit-modal" data-exit-modal aria-hidden="true">
+      <div class="exit-modal__card" role="dialog" aria-modal="true" aria-labelledby="exit-modal-title">
+        <h2 id="exit-modal-title">Are you sure you want to quit<br />the game?</h2>
+        <div class="exit-modal__actions">
+          <button class="secondary-button" type="button" data-action="close-exit-modal">Back to game</button>
+          <button class="outline-button" type="button" data-action="confirm-exit">Exit game</button>
+        </div>
+      </div>
+    </div>
   </div>
 `;
 
@@ -315,7 +304,10 @@ app.innerHTML = createGameMarkup();
 const screens = document.querySelectorAll<HTMLElement>('.page');
 const homeStartButton = document.querySelector<HTMLButtonElement>('[data-action="start-game"]');
 const beginGameButton = document.querySelector<HTMLButtonElement>('[data-action="begin-game"]');
-const exitGameButton = document.querySelector<HTMLButtonElement>('[data-action="exit-game"]');
+const exitGameButton = document.querySelector<HTMLButtonElement>('.game-page [data-action="exit-game"]');
+const exitModal = document.querySelector<HTMLElement>('[data-exit-modal]');
+const closeExitModalButton = document.querySelector<HTMLButtonElement>('[data-action="close-exit-modal"]');
+const confirmExitButton = document.querySelector<HTMLButtonElement>('[data-action="confirm-exit"]');
 const boardElement = document.querySelector<HTMLElement>('[data-board]');
 const currentPlayerLabel = document.querySelector<HTMLElement>('[data-current-player]');
 const scoreValues = document.querySelectorAll<HTMLElement>('[data-score-value]');
@@ -543,6 +535,18 @@ beginGameButton?.addEventListener('click', () => {
 });
 
 exitGameButton?.addEventListener('click', () => {
+  exitModal?.classList.add('is-visible');
+  exitModal?.setAttribute('aria-hidden', 'false');
+});
+
+closeExitModalButton?.addEventListener('click', () => {
+  exitModal?.classList.remove('is-visible');
+  exitModal?.setAttribute('aria-hidden', 'true');
+});
+
+confirmExitButton?.addEventListener('click', () => {
+  exitModal?.classList.remove('is-visible');
+  exitModal?.setAttribute('aria-hidden', 'true');
   setScreen('home');
 });
 
