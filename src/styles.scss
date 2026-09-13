@@ -256,6 +256,32 @@ button {
   text-transform: none;
 }
 
+.settings-group label {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.settings-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 1.6rem;
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
+.settings-icon--theme {
+  color: #ed1bb2;
+}
+
+.settings-icon--player {
+  color: #00d9b6;
+}
+
+.settings-icon--board {
+  color: #225cff;
+}
+
 .option-row {
   display: flex;
   flex-wrap: wrap;
@@ -436,6 +462,58 @@ button {
   font-weight: 800;
   color: #7dd9d0;
   text-shadow: 0 10px 0 rgba(115, 165, 159, 0.4);
+}
+
+.game-over-card h3.is-draw {
+  color: #63d1c2;
+  text-transform: uppercase;
+}
+
+.result-visual {
+  width: clamp(120px, 15vw, 210px);
+  height: clamp(120px, 15vw, 210px);
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 8px 3px rgba(0, 0, 0, 0.25));
+}
+
+.result-visual--blue {
+  color: #27aaf5;
+}
+
+.result-visual--orange {
+  color: #ff9534;
+}
+
+.result-visual--draw {
+  color: #55d2c2;
+}
+
+.confetti {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 16%;
+  overflow: hidden;
+  opacity: 0.95;
+  background:
+    linear-gradient(105deg, transparent 8%, #2fb0f2 8% 10%, transparent 10% 18%, #f6c324 18% 20%, transparent 20% 30%, #ed1930 30% 32%, transparent 32% 42%, #37b53b 42% 44%, transparent 44% 54%, #2fb0f2 54% 56%, transparent 56% 67%, #f6c324 67% 69%, transparent 69% 80%, #ed1930 80% 82%, transparent 82%);
+  transform: skewY(-3deg);
+}
+
+.confetti::before,
+.confetti::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(112deg, transparent 0 42px, #f6c324 42px 49px, transparent 49px 83px, #2fb0f2 83px 90px, transparent 90px 124px, #ed1930 124px 131px, transparent 131px 168px);
+}
+
+.confetti::after {
+  transform: translateY(12px) rotate(4deg);
+  opacity: 0.8;
 }
 
 .game-over-label {
@@ -626,50 +704,6 @@ button {
 
 .memory-card.is-matched .memory-card__front {
   box-shadow: 0 0 0 2px rgba(123, 240, 173, 0.6);
-}
-
-.game-over-modal {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  background: rgba(4, 8, 16, 0.58);
-  z-index: 10;
-}
-
-.game-over-card {
-  width: min(90%, 420px);
-  padding: 2rem;
-  border-radius: 24px;
-  background: rgba(12, 21, 34, 0.96);
-  border: 1px solid rgba(154, 203, 255, 0.18);
-  box-shadow: 0 30px 60px rgba(4, 10, 18, 0.6);
-  text-align: center;
-}
-
-.game-over-label {
-  margin: 0;
-  font-size: 0.75rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-
-.game-over-card h3 {
-  margin: 1rem 0 1.3rem;
-  font-family: 'Orbitron', sans-serif;
-  font-size: clamp(2rem, 4vw, 2.8rem);
-  line-height: 1;
-  letter-spacing: -0.08em;
-}
-
-.game-over-scores {
-  display: flex;
-  justify-content: center;
-  gap: 0.8rem;
-  margin-bottom: 1.5rem;
-  color: var(--text-primary);
-  font-weight: 600;
 }
 
 .exit-modal {

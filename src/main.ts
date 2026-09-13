@@ -200,8 +200,8 @@ const createGameMarkup = () => `
           <div class="settings-controls">
             <h2>Settings</h2>
 
-            <div class="settings-group">
-              <label>Game themes</label>
+            <div class="settings-group settings-group--themes">
+              <label><span class="settings-icon settings-icon--theme" aria-hidden="true">✿</span>Game themes</label>
               <div class="option-row" data-group="theme">
                 <button class="choice choice--active" type="button" data-value="Coding Vibes">Coding vibes</button>
                 <button class="choice" type="button" data-value="Food">Food</button>
@@ -210,16 +210,16 @@ const createGameMarkup = () => `
               </div>
             </div>
 
-            <div class="settings-group">
-              <label>Choose player</label>
+            <div class="settings-group settings-group--player">
+              <label><span class="settings-icon settings-icon--player" aria-hidden="true">♙</span>Choose player</label>
               <div class="option-row" data-group="color">
                 <button class="choice choice--active" type="button" data-value="Blue">Blue</button>
                 <button class="choice" type="button" data-value="Orange">Orange</button>
               </div>
             </div>
 
-            <div class="settings-group">
-              <label>Board size</label>
+            <div class="settings-group settings-group--board">
+              <label><span class="settings-icon settings-icon--board" aria-hidden="true">▱</span>Board size</label>
               <div class="option-row" data-group="board-size">
                 <button class="choice" type="button" data-value="4x4">16 cards</button>
                 <button class="choice choice--active" type="button" data-value="4x6">24 cards</button>
@@ -458,23 +458,41 @@ const renderBoard = () => {
             setTimeout(() => {
               const overlay = document.createElement('div');
               overlay.className = 'game-over-modal';
+              const isDraw = state.playerCount === 2 && state.scores.Blue === state.scores.Orange;
+              const winner = state.scores.Blue > state.scores.Orange ? 'Blue' : 'Orange';
+              const resultTitle = state.playerCount === 1
+                ? 'Game over'
+                : isDraw
+                  ? 'It’s a draw'
+                  : 'The winner is';
+              const resultName = state.playerCount === 1
+                ? 'Game over'
+                : isDraw
+                  ? ''
+                  : `${winner} player`;
+              const resultVisual = isDraw
+                ? `<svg class="result-visual result-visual--draw" viewBox="0 0 180 180" aria-hidden="true"><path d="M90 36v92M38 58h104M90 58l-22 35m22-35 22 35M52 94c0 13 10 23 23 23s23-10 23-23H52Zm53 0c0 13 10 23 23 23s23-10 23-23h-46ZM72 140h36c0 9-8 16-18 16s-18-7-18-16Zm-12 16h60" /></svg>`
+                : `<svg class="result-visual result-visual--${winner.toLowerCase()}" viewBox="0 0 180 180" aria-hidden="true"><circle cx="90" cy="43" r="24"/><path d="M63 78h54M72 75c-4 30-17 47-34 59v19h104v-19c-17-12-30-29-34-59"/></svg>`;
               const scoreMarkup = state.playerCount === 1
                 ? `<span class="score-chip score-chip--blue">Player 1: ${state.scores.Blue}</span>`
                 : `<span class="score-chip score-chip--blue">Blue ${state.scores.Blue}</span><span class="score-chip score-chip--orange">Orange ${state.scores.Orange}</span>`;
 
               overlay.innerHTML = `
                 <div class="game-over-card">
-                  <h3>Game over</h3>
+                  <div class="confetti" aria-hidden="true"></div>
+                  <p class="game-over-label">${resultTitle}</p>
+                  <h3 class="${isDraw ? 'is-draw' : ''}">${resultName}</h3>
+                  ${resultVisual}
                   <p class="game-over-label">Final score</p>
                   <div class="game-over-scores">
                     ${scoreMarkup}
                   </div>
-                  <button class="primary-button" type="button" data-action="restart-game">Play Again</button>
+                  <button class="primary-button" type="button" data-action="restart-game">Back to start</button>
                 </div>
               `;
 
               overlay.querySelector<HTMLButtonElement>('[data-action="restart-game"]')?.addEventListener('click', () => {
-                startNewGame();
+                setScreen('home');
               });
 
               boardElement.appendChild(overlay);
