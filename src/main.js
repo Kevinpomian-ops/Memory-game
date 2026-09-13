@@ -36,7 +36,11 @@ const themePalette = {
         '--choice-active-end': 'rgba(126, 203, 255, 0.12)',
         '--choice-active-border': 'rgba(126, 203, 255, 0.7)',
         '--card-shadow': 'rgba(20, 37, 56, 0.45)',
-        '--card-glow': 'rgba(76, 148, 255, 0.25)'
+        '--card-glow': 'rgba(76, 148, 255, 0.25)',
+        '--game-bg': '#202c35',
+        '--board-bg': 'rgba(11, 21, 35, 0.72)',
+        '--card-back-border': '#45cdbd',
+        '--card-front-border': '#dceceb'
     },
     Food: {
         '--page-bg-top': '#1b120d',
@@ -55,7 +59,11 @@ const themePalette = {
         '--choice-active-end': 'rgba(255, 209, 102, 0.12)',
         '--choice-active-border': 'rgba(255, 176, 93, 0.8)',
         '--card-shadow': 'rgba(79, 41, 10, 0.45)',
-        '--card-glow': 'rgba(255, 183, 76, 0.25)'
+        '--card-glow': 'rgba(255, 183, 76, 0.25)',
+        '--game-bg': '#3a2419',
+        '--board-bg': 'rgba(66, 35, 18, 0.78)',
+        '--card-back-border': '#f58b2b',
+        '--card-front-border': '#fff0dc'
     },
     'DA Projects': {
         '--page-bg-top': '#0c1422',
@@ -74,7 +82,11 @@ const themePalette = {
         '--choice-active-end': 'rgba(124, 229, 183, 0.12)',
         '--choice-active-border': 'rgba(124, 229, 183, 0.8)',
         '--card-shadow': 'rgba(7, 32, 49, 0.45)',
-        '--card-glow': 'rgba(99, 217, 255, 0.22)'
+        '--card-glow': 'rgba(99, 217, 255, 0.22)',
+        '--game-bg': '#163b4e',
+        '--board-bg': 'rgba(12, 25, 38, 0.78)',
+        '--card-back-border': '#34c9c1',
+        '--card-front-border': '#e1f5f4'
     },
     Gaming: {
         '--page-bg-top': '#294f60',
@@ -93,7 +105,11 @@ const themePalette = {
         '--choice-active-end': 'rgba(242, 16, 113, 0.1)',
         '--choice-active-border': '#f21071',
         '--card-shadow': 'rgba(10, 24, 33, 0.5)',
-        '--card-glow': 'rgba(242, 16, 113, 0.25)'
+        '--card-glow': 'rgba(242, 16, 113, 0.25)',
+        '--game-bg': '#294f60',
+        '--board-bg': 'rgba(33, 58, 70, 0.82)',
+        '--card-back-border': '#f21071',
+        '--card-front-border': '#f4d9e5'
     }
 };
 const defaultSettings = {
@@ -365,10 +381,8 @@ const renderBoard = () => {
         cardButton.disabled = state.locked || card.matched;
         cardButton.innerHTML = `
       <span class="memory-card__inner">
-        <span class="memory-card__face memory-card__back"></span>
-        <span class="memory-card__face memory-card__front">
-          <img src="${card.image}" alt="Memory card illustration" class="memory-card__image" />
-        </span>
+        <span class="memory-card__face memory-card__back" style="background-image: url('${card.image}')"></span>
+        <span class="memory-card__face memory-card__front" style="background-image: url('${card.image}')"></span>
       </span>
     `;
         cardButton.addEventListener('click', () => {
