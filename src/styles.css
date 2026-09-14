@@ -349,7 +349,7 @@ button {
 }
 
 .settings-preview {
-  background: #363838;
+  background: var(--preview-bg);
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.05);
   overflow: hidden;
@@ -401,7 +401,7 @@ button {
   position: relative;
   height: 270px;
   margin: 0 1.2rem 1rem;
-  background: #252727;
+  background: var(--preview-board-bg);
   border-radius: 24px;
   overflow: hidden;
 }
@@ -443,7 +443,7 @@ button {
 .footer-divider {
   width: 5px;
   height: 2.2rem;
-  background: #f0df58;
+  background: var(--preview-accent);
   transform: skew(-15deg);
 }
 
@@ -451,7 +451,7 @@ button {
   justify-self: end;
   border: none;
   border-radius: 12px;
-  background: #f0df7f;
+  background: var(--preview-accent);
   color: #1e1e1e;
   padding: 0.85rem 1.3rem;
   font-weight: 800;
@@ -466,8 +466,8 @@ button {
 
 .game-page .game-header {
   width: 100%;
-  background: rgba(43, 47, 47, 0.92);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--game-header-bg);
+  border-bottom: 1px solid var(--game-header-border);
 }
 
 .game-over-modal {
@@ -622,8 +622,8 @@ button {
   min-width: 86px;
   padding: 0.55rem 0.8rem;
   border-radius: 5px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(154, 203, 255, 0.3);
+  background: var(--score-bg);
+  border: 1px solid var(--score-border);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -632,8 +632,8 @@ button {
 }
 
 .score-pill--active {
-  border-color: rgba(126, 203, 255, 0.7);
-  background: linear-gradient(135deg, rgba(78, 141, 255, 0.18), rgba(126, 203, 255, 0.12));
+  border-color: var(--score-border);
+  background: var(--score-bg);
 }
 
 .score-pill.is-hidden {
@@ -672,7 +672,7 @@ button {
   border-radius: 28px;
   background: var(--board-bg);
   border: 1px solid var(--panel-border);
-  box-shadow: 0 28px 48px rgba(4, 10, 18, 0.46);
+  box-shadow: 0 28px 48px var(--board-shadow);
 }
 
 .game-board-wrapper:has(.game-board[data-board-size="4x4"]) {
