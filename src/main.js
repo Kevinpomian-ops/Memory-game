@@ -264,11 +264,11 @@ const createGameMarkup = () => `
             </div>
 
             <div class="settings-preview__footer">
-              <span>Game theme</span>
+              <span data-preview-value="theme">Coding vibes</span>
               <span class="footer-divider" aria-hidden="true"></span>
-              <span>Player</span>
+              <span data-preview-value="players">2 Players</span>
               <span class="footer-divider" aria-hidden="true"></span>
-              <span>Board size</span>
+              <span data-preview-value="board">24 cards</span>
               <button class="preview-start" type="button" data-action="begin-game">Start</button>
             </div>
           </div>
@@ -326,6 +326,11 @@ const boardElement = document.querySelector('[data-board]');
 const currentPlayerLabel = document.querySelector('[data-current-player]');
 const scoreValues = document.querySelectorAll('[data-score-value]');
 const themePreviewCards = document.querySelectorAll('[data-preview-card]');
+const previewValues = {
+    theme: document.querySelector('[data-preview-value="theme"]'),
+    players: document.querySelector('[data-preview-value="players"]'),
+    board: document.querySelector('[data-preview-value="board"]')
+};
 const setScreen = (screenName) => {
     screens.forEach((screen) => {
         const isVisible = screen.dataset.screen === screenName;
@@ -369,6 +374,31 @@ const updateCurrentPlayerDisplay = () => {
     });
     document.querySelector('.current-player-figure')?.classList.toggle('player-figure--orange', state.currentPlayer === 'Orange');
     document.querySelector('.current-player-figure')?.classList.toggle('player-figure--blue', state.currentPlayer === 'Blue');
+};
+const updateSettingsPreview = () => {
+    const selectedTheme = readSelectedOption('theme') ?? defaultSettings.theme;
+    const selectedColors = document.querySelectorAll('[data-group="color"] .choice--active');
+    const selectedBoard = readSelectedOption('board-size') ?? defaultSettings.boardSize;
+    const themeLabels = {
+        'Coding Vibes': 'Coding vibes',
+        Food: 'Food',
+        'DA Projects': 'DA Projects',
+        Gaming: 'Gaming'
+    };
+    if (previewValues.theme) {
+        previewValues.theme.textContent = themeLabels[selectedTheme] ?? selectedTheme;
+    }
+    if (previewValues.players) {
+        previewValues.players.textContent = `${selectedColors.length} ${selectedColors.length === 1 ? 'Player' : 'Players'}`;
+    }
+    if (previewValues.board) {
+        const boardLabels = {
+            '4x4': '16 cards',
+            '4x6': '24 cards',
+            '6x6': '36 cards'
+        };
+        previewValues.board.textContent = boardLabels[selectedBoard] ?? selectedBoard;
+    }
 };
 const buildDeck = (theme, boardSize) => {
     const { rows, cols } = getBoardDimensions(boardSize);
@@ -562,7 +592,9 @@ document.querySelectorAll('.choice').forEach((button) => {
                 button.classList.add('choice--active');
             }
         }
+        updateSettingsPreview();
     });
 });
 applyTheme(defaultSettings.theme);
+updateSettingsPreview();
 updateCurrentPlayerDisplay();
