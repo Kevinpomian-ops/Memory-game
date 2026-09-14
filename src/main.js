@@ -378,6 +378,7 @@ const renderBoard = () => {
     }
     const { cols } = getBoardDimensions(state.boardSize);
     boardElement.style.setProperty('--board-columns', String(cols));
+    boardElement.dataset.boardSize = state.boardSize;
     boardElement.innerHTML = '';
     state.board.forEach((card, index) => {
         const cardButton = document.createElement('button');

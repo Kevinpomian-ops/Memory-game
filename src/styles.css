@@ -28,6 +28,7 @@ body {
   margin: 0;
   min-height: 100%;
   min-width: 320px;
+  overflow: hidden;
   font-family: "Inter", sans-serif;
   background: var(--page-bg-top);
   color: var(--text-primary);
@@ -460,10 +461,11 @@ button {
 
 .game-page {
   background: var(--game-bg);
+  overflow: hidden;
 }
 
 .game-page .game-header {
-  width: min(100%, 1100px);
+  width: 100%;
   background: rgba(43, 47, 47, 0.92);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
@@ -590,9 +592,9 @@ button {
 }
 
 .game-header {
-  max-width: var(--page-width);
+  max-width: none;
   margin: 0 auto;
-  padding: 1rem 1.5rem;
+  padding: 0.8rem max(1rem, calc((100vw - 1100px) / 2));
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -613,18 +615,20 @@ button {
   flex-wrap: wrap;
   justify-content: flex-start;
   gap: 0.75rem;
+  align-items: center;
 }
 
 .score-pill {
-  min-width: 76px;
-  padding: 0.35rem 0.7rem;
+  min-width: 86px;
+  padding: 0.55rem 0.8rem;
   border-radius: 5px;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(154, 203, 255, 0.3);
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 0.2rem;
+  justify-content: center;
+  gap: 0.55rem;
 }
 
 .score-pill--active {
@@ -641,6 +645,8 @@ button {
   margin-left: 1rem;
   background: transparent;
   border-color: transparent;
+  flex-direction: column;
+  gap: 0.15rem;
 }
 
 .score-label {
@@ -653,17 +659,28 @@ button {
 .game-shell {
   display: grid;
   place-items: center;
-  min-height: calc(100vh - 110px);
-  padding: 2rem;
+  height: calc(100vh - 76px);
+  min-height: 0;
+  padding: 1rem 2rem;
+  overflow: hidden;
 }
 
 .game-board-wrapper {
-  width: min(100%, 980px);
-  padding: 1.5rem;
+  width: min(100%, 820px);
+  max-height: 100%;
+  padding: 1rem;
   border-radius: 28px;
   background: var(--board-bg);
   border: 1px solid var(--panel-border);
   box-shadow: 0 28px 48px rgba(4, 10, 18, 0.46);
+}
+
+.game-board-wrapper:has(.game-board[data-board-size="4x4"]) {
+  width: min(100%, 640px);
+}
+
+.game-board-wrapper:has(.game-board[data-board-size="6x6"]) {
+  width: min(100%, 540px);
 }
 
 .game-board {
@@ -672,6 +689,7 @@ button {
   grid-template-columns: repeat(var(--board-columns), minmax(70px, 1fr));
   gap: 1rem;
   width: 100%;
+  max-height: 100%;
 }
 
 .memory-card {
