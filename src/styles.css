@@ -369,10 +369,34 @@ button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 62px;
+  min-width: 46px;
   padding: 0.25rem 0.45rem;
   border-radius: 8px;
   font-weight: 700;
+  gap: 0.25rem;
+}
+
+.player-figure {
+  width: 1.35rem;
+  height: 1.55rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.player-figure--blue {
+  color: #3d9cff;
+}
+
+.player-figure--orange {
+  color: #ff9438;
+}
+
+.score-pill .player-figure {
+  width: 1.5rem;
+  height: 1.8rem;
 }
 
 .score-tag--blue {
@@ -647,6 +671,11 @@ button {
   border-color: transparent;
   flex-direction: column;
   gap: 0.15rem;
+}
+
+.score-pill--player .current-player-figure {
+  width: 1.2rem;
+  height: 1.35rem;
 }
 
 .score-label {

@@ -145,11 +145,16 @@ const themePalette = {
     }
 };
 const defaultSettings = {
-    playerColor: 'Blue',
-    playerCount: 2,
+    playerColors: ['Blue', 'Orange'],
     boardSize: '4x6',
     theme: 'Coding Vibes'
 };
+const playerIconMarkup = (color, className = '') => `
+  <svg class="player-figure player-figure--${color.toLowerCase()} ${className}" viewBox="0 0 40 48" aria-hidden="true">
+    <circle cx="20" cy="10" r="7"></circle>
+    <path d="M13 21h14l3 12H10l3-12Zm-3 12h20l4 11H6l4-11Z"></path>
+  </svg>
+`;
 const getBoardDimensions = (boardSize) => {
     switch (boardSize) {
         case '4x4':
@@ -230,7 +235,7 @@ const createGameMarkup = () => `
               <label><span class="settings-icon settings-icon--player" aria-hidden="true">♙</span>Choose player</label>
               <div class="option-row" data-group="color">
                 <button class="choice choice--active" type="button" data-value="Blue">Blue</button>
-                <button class="choice" type="button" data-value="Orange">Orange</button>
+                <button class="choice choice--active" type="button" data-value="Orange">Orange</button>
               </div>
             </div>
 
@@ -243,19 +248,12 @@ const createGameMarkup = () => `
               </div>
             </div>
 
-            <div class="settings-group">
-              <label>Players</label>
-              <div class="option-row" data-group="players">
-                <button class="choice" type="button" data-value="1">1 Player</button>
-                <button class="choice choice--active" type="button" data-value="2">2 Players</button>
-              </div>
-            </div>
           </div>
 
           <div class="settings-preview">
             <div class="settings-preview__topbar">
-              <span class="score-tag score-tag--blue">Blue</span>
-              <span class="score-tag score-tag--orange">Orange</span>
+              <span class="score-tag score-tag--blue">${playerIconMarkup('Blue')}<strong>0</strong></span>
+              <span class="score-tag score-tag--orange">${playerIconMarkup('Orange')}<strong>0</strong></span>
               <span class="current-player-label">Current player:</span>
               <button class="exit-button" type="button">Exit game</button>
             </div>
@@ -283,15 +281,16 @@ const createGameMarkup = () => `
     <header class="game-header">
       <div class="scoreboard" aria-live="polite">
         <div class="score-pill" data-score="Blue">
-          <span class="score-label">Blue</span>
+          ${playerIconMarkup('Blue')}
           <strong data-score-value="Blue">0</strong>
         </div>
         <div class="score-pill score-pill--active" data-score="Orange">
-          <span class="score-label">Orange</span>
+          ${playerIconMarkup('Orange')}
           <strong data-score-value="Orange">0</strong>
         </div>
         <div class="score-pill score-pill--player">
           <span class="score-label">Current Player</span>
+          ${playerIconMarkup('Blue', 'current-player-figure')}
           <strong data-current-player>Blue</strong>
         </div>
       </div>
@@ -335,11 +334,11 @@ const setScreen = (screenName) => {
     });
 };
 const state = {
-    playerColor: defaultSettings.playerColor,
-    playerCount: defaultSettings.playerCount,
+    playerColors: [...defaultSettings.playerColors],
+    playerCount: defaultSettings.playerColors.length,
     boardSize: defaultSettings.boardSize,
     theme: defaultSettings.theme,
-    currentPlayer: defaultSettings.playerColor,
+    currentPlayer: defaultSettings.playerColors[0],
     scores: {
         Blue: 0,
         Orange: 0
@@ -354,7 +353,7 @@ const updateCurrentPlayerDisplay = () => {
     if (!currentPlayerLabel) {
         return;
     }
-    currentPlayerLabel.textContent = state.playerCount === 1 ? 'Player 1' : state.currentPlayer;
+    currentPlayerLabel.textContent = state.currentPlayer;
     scoreValues.forEach((scoreValue) => {
         const playerName = scoreValue.dataset.scoreValue;
         if (!playerName) {
@@ -364,19 +363,12 @@ const updateCurrentPlayerDisplay = () => {
     });
     document.querySelectorAll('[data-score]').forEach((score) => {
         const playerName = score.dataset.score;
-        const shouldShow = state.playerCount === 2 || playerName === 'Blue';
+        const shouldShow = state.playerColors.includes(playerName);
         score.classList.toggle('is-hidden', !shouldShow);
         score.classList.toggle('score-pill--active', state.playerCount === 2 && playerName === state.currentPlayer);
     });
-    const playerIndicator = document.querySelector('[data-score="Blue"]');
-    if (state.playerCount === 1) {
-        if (playerIndicator) {
-            playerIndicator.classList.add('score-pill--active');
-        }
-        if (currentPlayerLabel) {
-            currentPlayerLabel.textContent = 'Player 1';
-        }
-    }
+    document.querySelector('.current-player-figure')?.classList.toggle('player-figure--orange', state.currentPlayer === 'Orange');
+    document.querySelector('.current-player-figure')?.classList.toggle('player-figure--blue', state.currentPlayer === 'Blue');
 };
 const buildDeck = (theme, boardSize) => {
     const { rows, cols } = getBoardDimensions(boardSize);
@@ -505,16 +497,16 @@ const renderBoard = () => {
     });
 };
 const startNewGame = () => {
-    const playerColor = readSelectedOption('color') ?? defaultSettings.playerColor;
-    const playerCountRaw = Number(readSelectedOption('players') ?? String(defaultSettings.playerCount));
+    const playerColors = [...document.querySelectorAll('[data-group="color"] .choice--active')]
+        .map((button) => button.dataset.value)
+        .filter((value) => value === 'Blue' || value === 'Orange');
     const boardSize = readSelectedOption('board-size') ?? defaultSettings.boardSize;
     const theme = readSelectedOption('theme') ?? defaultSettings.theme;
-    const playerCount = (playerCountRaw === 1 ? 1 : 2);
-    state.playerColor = playerColor;
-    state.playerCount = playerCount;
+    state.playerColors = playerColors.length > 0 ? playerColors : [...defaultSettings.playerColors];
+    state.playerCount = state.playerColors.length;
     state.boardSize = boardSize;
     state.theme = theme;
-    state.currentPlayer = playerColor;
+    state.currentPlayer = state.playerColors[0];
     state.scores = { Blue: 0, Orange: 0 };
     state.board = buildDeck(theme, boardSize);
     state.flipped = [];
@@ -552,12 +544,23 @@ document.querySelectorAll('.choice').forEach((button) => {
         if (!group) {
             return;
         }
-        group.querySelectorAll('.choice').forEach((choice) => {
-            choice.classList.toggle('choice--active', choice === button);
-        });
+        if (group.dataset.group === 'color') {
+            button.classList.toggle('choice--active');
+        }
+        else {
+            group.querySelectorAll('.choice').forEach((choice) => {
+                choice.classList.toggle('choice--active', choice === button);
+            });
+        }
         if (group.dataset.group === 'theme') {
             const selectedTheme = button.dataset.value ?? defaultSettings.theme;
             applyTheme(selectedTheme);
+        }
+        if (group.dataset.group === 'color') {
+            const selectedColors = [...group.querySelectorAll('.choice--active')].map((choice) => choice.dataset.value);
+            if (selectedColors.length === 0) {
+                button.classList.add('choice--active');
+            }
         }
     });
 });
