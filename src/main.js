@@ -5,17 +5,17 @@ if (!app) {
 }
 const themeAssets = {
     'Coding Vibes': [
-        ...Array.from({ length: 18 }, (_, index) => `/assets/Code vibes card ${index + 1}.png`)
+        ...Array.from({ length: 18 }, (_, index) => `./assets/Code vibes card ${index + 1}.png`)
     ],
     Food: [
-        ...Array.from({ length: 18 }, (_, index) => `/assets/food card ${String(index + 1).padStart(2, '0')}.png`)
+        ...Array.from({ length: 18 }, (_, index) => `./assets/food card ${String(index + 1).padStart(2, '0')}.png`)
     ],
     'DA Projects': [
-        '/assets/DA Projects card 01.png',
-        ...Array.from({ length: 17 }, (_, index) => `/assets/DA Projects card ${index + 2}.png`)
+        './assets/DA Projects card 01.png',
+        ...Array.from({ length: 17 }, (_, index) => `./assets/DA Projects card ${index + 2}.png`)
     ],
     Gaming: [
-        ...Array.from({ length: 18 }, (_, index) => `/assets/Game card ${index + 1}.png`)
+        ...Array.from({ length: 18 }, (_, index) => `./assets/Game card ${index + 1}.png`)
     ]
 };
 const themePalette = {
@@ -149,6 +149,11 @@ const applyTheme = (theme) => {
     Object.entries(palette).forEach(([property, value]) => {
         root.style.setProperty(property, value);
     });
+    const previewAssets = themeAssets[theme] ?? themeAssets[defaultSettings.theme];
+    themePreviewCards.forEach((card, index) => {
+        const asset = previewAssets[index] ?? previewAssets[0];
+        card.style.backgroundImage = `url("${asset}")`;
+    });
 };
 const createGameMarkup = () => `
   <div class="page home-page is-visible" data-screen="home">
@@ -165,9 +170,10 @@ const createGameMarkup = () => `
         </div>
 
         <div class="controller-card" aria-hidden="true">
-          <img src="/assets/stadia_controller.svg" alt="Controller" class="controller-card__image" />
+          <img src="./assets/stadia_controller.svg" alt="Controller" class="controller-card__image" />
         </div>
       </div>
+      <button class="exit-button" type="button" data-action="exit-game">Exit Game</button>
     </main>
   </div>
 
@@ -222,14 +228,16 @@ const createGameMarkup = () => `
               <button class="exit-button" type="button">Exit game</button>
             </div>
 
-            <div class="settings-preview__board">
-              <div class="mini-card mini-card--teal"></div>
-              <div class="mini-card mini-card--light"></div>
+            <div class="settings-preview__board" aria-label="Selected theme preview">
+              <div class="mini-card mini-card--teal" data-preview-card="0"></div>
+              <div class="mini-card mini-card--light" data-preview-card="1"></div>
             </div>
 
             <div class="settings-preview__footer">
               <span>Game theme</span>
+              <span class="footer-divider" aria-hidden="true"></span>
               <span>Player</span>
+              <span class="footer-divider" aria-hidden="true"></span>
               <span>Board size</span>
               <button class="preview-start" type="button" data-action="begin-game">Start</button>
             </div>
@@ -241,8 +249,6 @@ const createGameMarkup = () => `
 
   <div class="page game-page" data-screen="game" aria-hidden="true">
     <header class="game-header">
-      <button class="exit-button" type="button" data-action="exit-game">Exit Game</button>
-
       <div class="scoreboard" aria-live="polite">
         <div class="score-pill" data-score="Blue">
           <span class="score-label">Blue</span>
@@ -257,6 +263,7 @@ const createGameMarkup = () => `
           <strong data-current-player>Blue</strong>
         </div>
       </div>
+      <button class="exit-button" type="button" data-action="exit-game">Exit Game</button>
     </header>
 
     <main class="game-shell">
@@ -287,6 +294,7 @@ const confirmExitButton = document.querySelector('[data-action="confirm-exit"]')
 const boardElement = document.querySelector('[data-board]');
 const currentPlayerLabel = document.querySelector('[data-current-player]');
 const scoreValues = document.querySelectorAll('[data-score-value]');
+const themePreviewCards = document.querySelectorAll('[data-preview-card]');
 const setScreen = (screenName) => {
     screens.forEach((screen) => {
         const isVisible = screen.dataset.screen === screenName;

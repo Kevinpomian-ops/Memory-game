@@ -87,22 +87,30 @@ button {
   min-height: 100vh;
   display: grid;
   place-items: center;
+  width: min(100%, 950px);
+  margin: 0 auto;
   padding: 2rem;
+  background: #2b2f2f;
+  overflow: hidden;
 }
 
 .home-screen__content {
-  width: min(100%, 1180px);
+  position: relative;
+  width: 100%;
+  min-height: 650px;
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-  align-items: center;
-  gap: 3rem;
+  place-items: center;
 }
 
 .controller-card {
   position: relative;
   display: grid;
   place-items: center;
-  min-height: 420px;
+  position: absolute;
+  left: -4rem;
+  bottom: -4rem;
+  width: 300px;
+  min-height: 300px;
   border-radius: 44px;
   background: transparent;
   border: none;
@@ -124,7 +132,7 @@ button {
 .controller-card__image {
   position: relative;
   display: block;
-  width: min(100%, 420px);
+  width: min(100%, 360px);
   height: auto;
   opacity: 0.7;
   transform: rotate(-8deg);
@@ -135,14 +143,16 @@ button {
 .home-screen__copy {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-self: center;
-  width: min(100%, 560px);
+  width: min(100%, 700px);
+  text-align: center;
+  z-index: 1;
 }
 
 .eyebrow {
   margin: 0 0 1rem;
-  font-size: clamp(1.5rem, 2vw, 2.5rem);
+  font-size: clamp(1.25rem, 2vw, 2rem);
   font-weight: 400;
   color: var(--text-primary);
   letter-spacing: -0.04em;
@@ -150,9 +160,10 @@ button {
 
 .home-screen__copy h1 {
   margin: 0;
-  font-size: clamp(3rem, 7vw, 9rem);
-  line-height: 0.82;
-  letter-spacing: -0.08em;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(3.5rem, 7vw, 6.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.06em;
   font-weight: 700;
   color: var(--text-primary);
 }
@@ -175,15 +186,20 @@ button {
   align-items: center;
   justify-content: center;
   gap: 0.8rem;
-  padding: 1.1rem 2.2rem;
+  padding: 0.8rem 1.2rem;
   border: none;
-  border-radius: 18px;
+  border-radius: 0;
   background: linear-gradient(135deg, var(--button-gradient-start) 0%, var(--button-gradient-end) 100%);
   color: var(--button-text);
-  font-size: clamp(1.4rem, 2vw, 2.2rem);
+  font-size: 1.25rem;
   font-weight: 800;
   letter-spacing: -0.05em;
   box-shadow: 0 12px 0 rgba(0, 0, 0, 0.12);
+}
+
+.home-page .play-button {
+  background: #f3e84f;
+  color: #303030;
 }
 
 .play-button__icon {
@@ -202,19 +218,22 @@ button {
 }
 
 .settings-page {
-  background: #eceae3;
+  background: #0d0d0d;
 }
 
 .settings-screen {
   min-height: 100vh;
   display: grid;
   place-items: center;
+  width: min(100%, 950px);
+  margin: 0 auto;
   padding: 2rem;
+  background: #fff;
 }
 
 .settings-panel {
   width: min(100%, 1100px);
-  padding: 2rem 2rem 1.25rem;
+  padding: 2rem 3rem 1.25rem;
   border-radius: 0;
   background: transparent;
   border: none;
@@ -234,7 +253,7 @@ button {
 
 .settings-panel h2 {
   margin: 0 0 2rem;
-  font-size: clamp(3rem, 4vw, 5rem);
+  font-size: clamp(2.4rem, 4vw, 3.4rem);
   line-height: 0.95;
   letter-spacing: -0.08em;
   color: #1f1f1f;
@@ -243,14 +262,14 @@ button {
 }
 
 .settings-group {
-  margin-bottom: 2rem;
+  margin-bottom: 1.35rem;
 }
 
 .settings-group label {
   display: block;
   margin-bottom: 0.8rem;
   color: #1f1f1f;
-  font-size: 2rem;
+  font-size: 1rem;
   letter-spacing: -0.04em;
   font-weight: 400;
   text-transform: none;
@@ -266,7 +285,7 @@ button {
   display: inline-grid;
   place-items: center;
   width: 1.6rem;
-  font-size: 1.35rem;
+  font-size: 1.1rem;
   font-weight: 800;
 }
 
@@ -290,13 +309,13 @@ button {
 }
 
 .choice {
-  min-width: 110px;
+  min-width: 96px;
   padding: 0.55rem 0.55rem 0.5rem;
   border: 1px solid transparent;
   border-radius: 0;
   background: transparent;
   color: #1f1f1f;
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   font-weight: 400;
   cursor: pointer;
   pointer-events: auto;
@@ -329,8 +348,8 @@ button {
 }
 
 .settings-preview {
-  background: rgba(52, 54, 56, 0.82);
-  border-radius: 32px;
+  background: #363838;
+  border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.05);
   overflow: hidden;
   box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2);
@@ -340,7 +359,7 @@ button {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  padding: 1rem 1.2rem 0.75rem;
+  padding: 0.8rem 1.2rem 0.65rem;
   color: var(--text-primary);
   font-size: 0.82rem;
 }
@@ -379,9 +398,9 @@ button {
 
 .settings-preview__board {
   position: relative;
-  height: 340px;
+  height: 270px;
   margin: 0 1.2rem 1rem;
-  background: rgba(13, 17, 18, 0.78);
+  background: #252727;
   border-radius: 24px;
   overflow: hidden;
 }
@@ -389,33 +408,42 @@ button {
 .mini-card {
   position: absolute;
   width: 42%;
-  height: 42%;
-  border-radius: 16px;
-  transform: rotate(-10deg);
+  height: 48%;
+  border-radius: 4px;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-size: 100% 200%;
   box-shadow: 0 14px 30px rgba(0, 0, 0, 0.22);
 }
 
 .mini-card--teal {
-  background: linear-gradient(135deg, #72e1d1, #59cfe2);
-  left: 22%;
-  top: 22%;
+  left: 18%;
+  top: 25%;
+  transform: rotate(-8deg);
 }
 
 .mini-card--light {
-  background: linear-gradient(135deg, #f7f5ef, #e6e2dc);
-  right: 18%;
-  top: 28%;
+  right: 13%;
+  top: 31%;
   transform: rotate(8deg);
 }
 
 .settings-preview__footer {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+  display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0 1.2rem 1.2rem;
-  color: rgba(255, 255, 255, 0.8);
+  gap: 0.65rem;
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background: #f7f7f7;
+  color: #333;
   font-size: 0.92rem;
+}
+
+.footer-divider {
+  width: 5px;
+  height: 2.2rem;
+  background: #f0df58;
+  transform: skew(-15deg);
 }
 
 .preview-start {
@@ -432,6 +460,12 @@ button {
 
 .game-page {
   background: var(--game-bg);
+}
+
+.game-page .game-header {
+  width: min(100%, 1100px);
+  background: rgba(43, 47, 47, 0.92);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .game-over-modal {
@@ -558,7 +592,7 @@ button {
 .game-header {
   max-width: var(--page-width);
   margin: 0 auto;
-  padding: 1.5rem 2rem 0;
+  padding: 1rem 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -577,16 +611,16 @@ button {
 .scoreboard {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end;
+  justify-content: flex-start;
   gap: 0.75rem;
 }
 
 .score-pill {
-  min-width: 120px;
-  padding: 0.8rem 1rem;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(154, 203, 255, 0.15);
+  min-width: 76px;
+  padding: 0.35rem 0.7rem;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(154, 203, 255, 0.3);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -603,7 +637,10 @@ button {
 }
 
 .score-pill--player {
-  min-width: 160px;
+  min-width: 150px;
+  margin-left: 1rem;
+  background: transparent;
+  border-color: transparent;
 }
 
 .score-label {
